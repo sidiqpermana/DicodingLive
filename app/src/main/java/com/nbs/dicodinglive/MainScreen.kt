@@ -32,12 +32,12 @@ fun App(){
 @Composable
 fun AppContent(){
     Scaffold(
-        topBar = {
-            appBar()
-        },
-        bodyContent = {
-            FormLayout()
-        }
+            topBar = {
+                appBar()
+            },
+            bodyContent = {
+                EllipseCalculation()
+            }
     )
 }
 
@@ -51,12 +51,28 @@ fun appBar(){
 }
 
 @Composable
-fun FormLayout(){
+fun EllipseCalculation(){
     val result = remember { mutableStateOf(0.0) }
     val radius = remember { mutableStateOf("") }
+
+    FormLayout(radius = radius.value,
+            onRadiusChanged = {
+                radius.value = it
+            }, result = result.value,
+            onResultChanged = {
+                result.value = it
+            }, calculate = {
+        result.value = Math.PI * sqrt(radius.value.toDouble())
+    })
+}
+
+@Composable
+fun FormLayout(radius: String, onRadiusChanged: (String) -> Unit,
+               result: Double, onResultChanged: (Double) -> Unit,
+               calculate: () -> Unit){
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-        TextField(value = radius.value, onValueChange = {
-            radius.value = it
+        TextField(value = radius, onValueChange = {
+             onRadiusChanged.invoke(it)
         }, label = {
             Text(text = "Radius")
         }, modifier = Modifier.fillMaxWidth(), keyboardType = KeyboardType.Number)
@@ -65,8 +81,8 @@ fun FormLayout(){
 
         Row {
             Button(onClick = {
-                if (radius.value.isNotEmpty()){
-                    result.value = Math.PI * sqrt(radius.value.toDouble())
+                if (radius.isNotEmpty()){
+                    calculate.invoke()
                 }
             }) {
                 Text(text = "Hitung")
@@ -75,8 +91,8 @@ fun FormLayout(){
             Spacer(modifier = Modifier.preferredWidth(16.dp))
 
             Button(onClick = {
-                radius.value = ""
-                result.value = 0.0
+                onRadiusChanged.invoke("")
+                onResultChanged.invoke(0.0)
             }) {
                 Text(text = "Hapus")
             }
@@ -84,7 +100,7 @@ fun FormLayout(){
 
         Divider(color = Color.Transparent, modifier = Modifier.preferredHeight(16.dp))
 
-        showResult(result.value)
+        showResult(result)
     }
 }
 
@@ -105,6 +121,6 @@ fun DefaultPreview() {
 @Composable
 fun FormPreview() {
     DicodingLiveTheme {
-        FormLayout()
+        EllipseCalculation()
     }
 }
