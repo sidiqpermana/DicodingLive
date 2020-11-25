@@ -1,4 +1,4 @@
-package com.nbs.dicodinglive
+package com.nbs.dicodinglive.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

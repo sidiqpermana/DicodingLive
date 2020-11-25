@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">DicodingLive</string>
+    <string name="label_radius">Radius</string>
+    <string name="label_calculate">Hitung</string>
+    <string name="label_delete">Hapus</string>
 </resources>
