@@ -3,8 +3,9 @@ package com.nbs.dicodinglive
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
-import com.nbs.dicodinglive.main.App
+import com.nbs.dicodinglive.main.EllipseCalculation
 import com.nbs.dicodinglive.main.MainActivity
+import com.nbs.dicodinglive.main.Page
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -28,7 +29,12 @@ class MainActivityTest {
     @Before
     fun setUp(){
         composeTestRule.setContent {
-            App()
+            Page(
+                title = InstrumentationRegistry.getInstrumentation().targetContext.getString(R.string.title_calculate_radius),
+                body = {
+                    EllipseCalculation()
+                }
+            )
         }
 
         composeTestRule.onRoot().printToLog("TAG")

@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">DicodingLive</string>
+    <string name="title_calculate_radius">"Hitung Radius"</string>
     <string name="label_radius">Radius</string>
     <string name="label_calculate">Hitung</string>
     <string name="label_delete">Hapus</string>
+    <string name="title_activity_video_player">Video Player</string>
+    <string name="action_open_video_player">Open Video Player</string>
+    <string name="action_open_detail_video">Open Detail Video</string>
+    <string name="video_description">
+        Jurassic World Camp Cretaceous is an American animated science fiction adventure streaming television series. It is part of the Jurassic Park franchise and debuted on Netflix on September 18, 2020. Set before, during and after the events of the film Jurassic World, the series follows six teenagers who become stranded on Isla Nublar after multiple dinosaurs escape their habitats.
+    </string>
 </resources>

@@ -6,6 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
@@ -24,38 +25,46 @@ fun Greeting(name: String) {
 }
 
 @Composable
-fun App(){
+fun Page(title: String, body: @Composable() () -> Unit){
     DicodingLiveTheme {
         // A surface container using the 'background' color from the theme
         Surface(color = MaterialTheme.colors.background) {
-            AppContent()
+            PageContent(
+                title = title,
+                body = {
+                    body.invoke()
+                }
+            )
         }
     }
 }
 
 @Composable
-fun AppContent(){
+fun PageContent(title: String, body: @Composable ()-> Unit){
     Scaffold(
             topBar = {
-                appBar()
+                appBar(title = title)
             },
             bodyContent = {
-                EllipseCalculation()
+                body.invoke()
             }
     )
 }
 
 @Composable
-fun appBar(){
+fun appBar(title: String){
     TopAppBar(
         title = {
-            Text(text = "Radius Calculator")
+            Text(text = title)
         }
     )
 }
 
 @Composable
-fun EllipseCalculation(){
+fun EllipseCalculation(
+    openVideoPlayer: (() -> Unit)? = null,
+    openDetailVideo: (() -> Unit)? = null
+){
     val result = remember { mutableStateOf(0.0) }
     val radius = remember { mutableStateOf("") }
 
@@ -67,13 +76,18 @@ fun EllipseCalculation(){
                 result.value = it
             }, calculate = {
         result.value = (Math.PI * sqrt(radius.value.toDouble())).roundToLong().toDouble()
-    })
+    }, onVideoPlayerClicked = {
+            openVideoPlayer?.invoke()
+        }, onOpenDetailVideoClicked = {
+            openDetailVideo?.invoke()
+        })
 }
 
 @Composable
 fun FormLayout(radius: String, onRadiusChanged: (String) -> Unit,
                result: Double, onResultChanged: (Double) -> Unit,
-               calculate: () -> Unit){
+               calculate: () -> Unit, onVideoPlayerClicked: () -> Unit,
+                onOpenDetailVideoClicked: () -> Unit){
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
         TextField(value = radius, onValueChange = {
             onRadiusChanged.invoke(it)
@@ -107,6 +121,22 @@ fun FormLayout(radius: String, onRadiusChanged: (String) -> Unit,
         Divider(color = Color.Transparent, modifier = Modifier.preferredHeight(16.dp))
 
         showResult(result)
+
+        Divider(color = Color.Transparent, modifier = Modifier.preferredHeight(32.dp))
+
+        Button(onClick = {
+            onVideoPlayerClicked.invoke()
+        }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+            Text(text = stringResource(id = R.string.action_open_video_player))
+        }
+
+        Divider(color = Color.Transparent, modifier = Modifier.preferredHeight(32.dp))
+
+        Button(onClick = {
+            onOpenDetailVideoClicked.invoke()
+        }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+            Text(text = stringResource(id = R.string.action_open_detail_video))
+        }
     }
 }
 
