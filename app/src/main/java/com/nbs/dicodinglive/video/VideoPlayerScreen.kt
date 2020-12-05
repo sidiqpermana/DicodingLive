@@ -10,12 +10,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
-import androidx.ui.tooling.preview.Preview
 import com.nbs.dicodinglive.R
 import com.nbs.dicodinglive.ui.DicodingLiveTheme
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
