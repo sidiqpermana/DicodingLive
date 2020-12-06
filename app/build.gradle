@@ -34,7 +34,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion kotlin_version
+        kotlinCompilerVersion '1.4.10'
     }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
