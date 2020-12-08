@@ -26,6 +26,11 @@ Runs all the tests
 fastlane android beta
 ```
 Generate Apk Release
+### android debug
+```
+fastlane android debug
+```
+Generate Debug API
 ### android deploy
 ```
 fastlane android deploy
